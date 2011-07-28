@@ -34,11 +34,10 @@ body {
 
 ## Browser support
 
- Texty is tested in the following browsers:
+ Texty is tested in the following browsers but feel free to contribute!
  
    - Chrome 12.x
    - Safari 5.x
-   - FireFox 5.x
 
 ## License 
 
