@@ -32,6 +32,14 @@ body {
 }
 ```
 
+## Browser support
+
+ Texty is tested in the following browsers:
+ 
+   - Chrome 12.x
+   - Safari 5.x
+   - FireFox 5.x
+
 ## License 
 
 (The MIT License)
