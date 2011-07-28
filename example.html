@@ -121,6 +121,7 @@
 
         addEventListener('keypress', function(e){
           if (!text.visible) return;
+          if (e.ctrlKey) return;
           if (text.selected) text.removeSelection();
           text.insert(String.fromCharCode(e.keyCode));
         }, false);
