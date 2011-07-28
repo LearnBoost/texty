@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf8">
     <script src="build/texty.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script>
@@ -124,10 +125,8 @@
           text.insert(String.fromCharCode(e.keyCode));
         });
 
-        o('[name=css]').toggle(function(){
+        o('[name=css]').click(function(){
           text.inheritCSS();
-        }, function(){
-          
         });
 
         var fps = 24;
@@ -148,6 +147,9 @@
       .text {
         font-size: 20px;
         color: #888;
+      }
+      .text .line {
+        list-style: bullet;
       }
       .text .caret {
         color: red;
