@@ -1,15 +1,18 @@
 <html>
   <head>
     <script src="build/texty.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script>
-      onload = function(){
-        var canvas = document.getElementById('canvas')
+      o = $;
+
+      o(function(){
+        var canvas = o('canvas').get(0)
           , ctx = canvas.getContext('2d')
           , text = new Text
           , prev
           , start;
 
-        canvas.addEventListener('mousedown', function(e){
+        o(canvas).mousedown(function(e){
           var now = new Date
             , x = e.offsetX
             , y = e.offsetY;
@@ -28,24 +31,19 @@
             }
           }
           prev = new Date;
-        }, false);
+        });
 
-        canvas.addEventListener('mousemove', function(e){
+        o(document).mousemove(function(e){
           if (!start) return;
           text.select(start.offsetX, start.offsetY, e.offsetX, e.offsetY);
           text.caret.hide();
-        }, false);
+        });
 
-        canvas.addEventListener('mouseup', function(e){
+        o(document).mouseup(function(e){
           start = null;
-        }, false);
+        });
 
-        canvas.addEventListener('contextmenu', function(e){
-          menu.moveTo(e.offsetX, e.offsetY).show();
-          e.preventDefault();
-        }, false);
-
-        addEventListener('keydown', function(e){
+        o(document).keydown(function(e){
           var selection, n = 1;
            text.caret.show();
            switch (e.keyCode) {
@@ -117,23 +115,27 @@
                }
                break;
            }
-        }, false);
+        });
 
-        addEventListener('keypress', function(e){
+        o(document).keypress(function(e){
           if (!text.visible) return;
           if (e.ctrlKey) return;
           if (text.selected) text.removeSelection();
           text.insert(String.fromCharCode(e.keyCode));
-        }, false);
+        });
 
         var fps = 24;
         setInterval(function(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           text.draw(ctx);
         }, 1000 / fps);
-      };
+      });
     </script>
     <style>
+      body {
+        font: 14px helvetica, arial, sans-serif;
+        padding: 20px;
+      }
       .text {
         font: 20px helvetica, arial, sans-serif;
         color: #888;
@@ -147,7 +149,8 @@
     </style>
   </head>
   <body>
-    <canvas id="canvas" width="900" height="500" style="border: 1px solid #eee;">
+    <p>Inherit CSS styling: <input type="checkbox" name="css" /></p>
+    <canvas width="900" height="400" style="border: 1px solid #eee;">
     </canvas>
   </body>
 </html>
