@@ -124,6 +124,12 @@
           text.insert(String.fromCharCode(e.keyCode));
         });
 
+        o('[name=css]').toggle(function(){
+          text.inheritCSS();
+        }, function(){
+          
+        });
+
         var fps = 24;
         setInterval(function(){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -132,6 +138,9 @@
       });
     </script>
     <style>
+      * {
+        -webkit-user-select: none;
+      }
       body {
         font: 14px helvetica, arial, sans-serif;
         padding: 20px;
