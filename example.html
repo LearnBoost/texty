@@ -134,46 +134,15 @@
       };
     </script>
     <style>
-      * {
-        -webkit-user-select: none;
-      }
-      #chalk .text {
+      .text {
         font: 20px helvetica, arial, sans-serif;
-        color: black;
-      }
-      #chalk .text .caret {
         color: #888;
       }
-      #chalk .text .selection {
-        background: #DFF3FC;
+      .text .caret {
+        color: red;
       }
-      #context-menu {
-        display: none;
-        position: absolute;
-        z-index: 50;
-        margin: 5px;
-        padding: 0;
-        background: rgba(255,255,255,0.95);
-        border: 1px solid rgba(0,0,0,0.2);
-        -webkit-border-radius: 5px;
-        -webkit-box-shadow: 0 10px 12px 0 rgba(0,0,0,0.1), 0 2px 6px 0 rgba(0,0,0,0.2);
-      }
-      #context-menu li {
-        list-style: none;
-      }
-      #context-menu a {
-        display: block;
-        padding: 5px 12px;
-        text-decoration: none;
-        font: 12px helvetica, arial, sans-serif;
-        border-top: 1px solid #eee;
-        color: #2E2E2E;
-      }
-      #context-menu li:first-child a {
-        border-top: none;
-      }
-      #context-menu a:hover {
-        background: #F1FAFF;
+      .text .selection {
+        background: rgba(255,0,0,0.1);
       }
     </style>
   </head>
