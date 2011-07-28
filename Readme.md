@@ -32,6 +32,19 @@ body {
 }
 ```
 
+## Build
+
+  To build texty you'll need uglifyjs installed, after which you can simply run:
+  
+    $ make
+
+  However pre-built scripts are available in _./build_:
+
+     ./build/texty.js
+     ./build/texty.min.js
+
+  Texty is roughly 1000 LOC, and when minified is only 24kb.
+
 ## Browser support
 
  Texty is tested in the following browsers but feel free to contribute!
