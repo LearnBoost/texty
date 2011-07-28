@@ -47,7 +47,7 @@
         o(document).keydown(function(e){
           var selection, n = 1;
            text.caret.show();
-           switch (e.keyCode) {
+           switch (e.which) {
              // newline
              case 0x0d:
                text.insert('\n');
@@ -137,7 +137,7 @@
           if (!text.visible) return;
           if (e.ctrlKey) return;
           if (text.selected) text.removeSelection();
-          text.insert(String.fromCharCode(e.keyCode));
+          text.insert(String.fromCharCode(e.which));
         });
 
         o('[name=css]').click(function(){
