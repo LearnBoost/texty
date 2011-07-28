@@ -1,7 +1,11 @@
 
 # texty
 
-  light-weight canvas text editing
+  light-weight canvas text editing.
+
+## Implementation
+
+  texty is _not_ an __IDE__, nor a generic rich text editor, it's purpose is to remain light-weight and provide textbox-like editing for canvas.
 
 ## License 
 
