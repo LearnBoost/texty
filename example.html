@@ -52,11 +52,19 @@
              case 0x0d:
                text.insert('\n');
                break;
+             // V
+             case 0x56:
+               if (e.metaKey) {
+                 e.preventDefault();
+                 alert('TODO: implement paste');
+               }
+               break;
              // C
              case 0x43:
               if (e.metaKey) {
                 e.preventDefault();
-                alert('TODO: implement copy "' + text.selection().string + '"');
+                selection = text.selection();
+                alert('TODO: implement copy "' + selection.string + '"');
               }
               break;
              // A
