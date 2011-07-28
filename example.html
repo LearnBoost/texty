@@ -52,6 +52,13 @@
              case 0x0d:
                text.insert('\n');
                break;
+             // C
+             case 0x43:
+              if (e.metaKey) {
+                e.preventDefault();
+                alert('TODO: implement copy "' + text.selection().string + '"');
+              }
+              break;
              // A
              case 0x41:
                if (e.metaKey) text.selectAll().caret.hide();
