@@ -13,7 +13,7 @@ build/texty.js: $(OUT)
 	cat head $< tail > $@ 
 
 build/texty.min.js: build/texty.js
-	uglifyjs $< > $@
+	uglifyjs --no-mangle $< > $@
 
 clean:
 	rm -fr build $(OUT)
