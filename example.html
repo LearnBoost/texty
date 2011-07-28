@@ -140,8 +140,10 @@
           text.insert(String.fromCharCode(e.which));
         });
 
-        o('[name=css]').click(function(){
+        o('[name=css]').toggle(function(){
           text.inheritCSS();
+        }, function(){
+          text.clearCSS();
         });
 
         var fps = 24;

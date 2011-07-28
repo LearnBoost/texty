@@ -364,9 +364,20 @@ selectorStyle = function style(selector, prop) {
 
 Text = function Text(str) {
   this.caret = new Caret(this);
-  this.hide()
-    .listStyle('none')
-    .text(str || '')
+  this.hide().text(str || '');
+  this.clearCSS();
+};
+
+/**
+ * Clear CSS inheritance, reverting to the
+ * original styling for Texty.
+ *
+ * @api public
+ */
+
+Text.prototype.clearCSS = function(){
+  this.caret.color('#888');
+  this.listStyle('none')
     .size(20)
     .font('Helvetica')
     .color('#000')
