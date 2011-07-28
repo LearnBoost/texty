@@ -1,11 +1,11 @@
 
-# texty
+# Texty
 
   light-weight canvas text editing.
 
 ## Implementation
 
-  texty is _not_ an __IDE__, nor a generic rich text editor, it's purpose is to remain light-weight and provide textbox-like editing for canvas.
+  Texty is _not_ an __IDE__, nor a generic rich text editor, it's purpose is to remain light-weight and provide textbox-like editing for canvas. Texty knows nothing of the DOM, and does not interact with the canvas directly, the only interaction is by passing a `CanvasRenderingContext2d` to the `Text#draw(ctx)` method, all caret movements, selection, etc are performed via method calls, the event handlers themselves are designed by the developer however the _example.html_ file contains an example of these basic interactions.
 
 ## License 
 
