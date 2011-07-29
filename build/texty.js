@@ -618,6 +618,18 @@ Text.prototype.insertAt = function(str, pos){
 };
 
 /**
+ * Return em for `ctx`.
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @return {Number}
+ * @api public
+ */
+
+Text.prototype.em = function(ctx){
+  return ctx.measureText('M').width;
+};
+
+/**
  * Return the char index relative to the point (`x`, `y`).
  *
  * @param {Number} x
@@ -962,7 +974,7 @@ Text.prototype.drawText = function(ctx, x, y, size, text){
 
 Text.prototype.drawLineDecoration = function(ctx, x, y, size, text, c){
   var len = text.split('\n').length
-    , em = ctx.measureText('M').width;
+    , em = this.em(ctx);
 
   ctx.save();
   ctx.font = (this._size * .65) + 'px ' + this._families;
