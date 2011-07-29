@@ -140,16 +140,20 @@
           text.insert(String.fromCharCode(e.which));
         });
 
-        o('[name=css]').toggle(function(){
-          text.inheritCSS();
-        }, function(){
-          text.clearCSS();
+        o('[name=css]').change(function(){
+          if (o(this).is(':checked')) {
+            text.inheritCSS();
+          } else {
+            text.clearCSS();
+          }
         });
 
-        o('[name=bounds]').toggle(function(){
-          text.showBounds = true;
-        }, function(){
-          text.showBounds = false;
+        o('[name=bounds]').change(function(){
+          if (o(this).is(':checked')) {
+            text.showBounds = true;
+          } else {
+            text.showBounds = false;
+          }
         });
 
         var fps = 24;
