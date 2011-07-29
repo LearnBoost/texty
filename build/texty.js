@@ -976,16 +976,7 @@ Text.prototype.drawLineDecoration = function(ctx, x, y, height, text, c){
   ctx.restore();
 };
 
-/**
- * Draw text boundaries in red.
- *
- * @param {CanvasRenderingContext2D} ctx
- * @return {Text} for chaining
- * @api public
- */
-
-Text.prototype.drawBounds = function(ctx){
-  if (!this.visible) return this;
+Text.prototype.bounds = function(ctx){
   var text = this._text
     , lines = text.split('\n')
     , lineHeight = this._lineHeight
@@ -1001,8 +992,28 @@ Text.prototype.drawBounds = function(ctx){
     bwidth = Math.max(bwidth, width);
   }
 
+  return {
+      x: x
+    , y: y - height / 2
+    , width: bwidth
+    , height: bheight 
+  };
+};
+
+
+/**
+ * Draw text boundaries in red.
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @return {Text} for chaining
+ * @api public
+ */
+
+Text.prototype.drawBounds = function(ctx){
+  if (!this.visible) return this;
+  var bounds = this.bounds(ctx);
   ctx.strokeStyle = 'rgba(255,0,0,.5)';
-  ctx.strokeRect(x, y - height / 2, bwidth, bheight);
+  ctx.strokeRect(bounds.x, bounds.y, bounds.width, bounds.height);
   return this;
 };
 
