@@ -977,6 +977,36 @@ Text.prototype.drawLineDecoration = function(ctx, x, y, height, text, c){
 };
 
 /**
+ * Draw text boundaries in red.
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @return {Text} for chaining
+ * @api public
+ */
+
+Text.prototype.drawBounds = function(ctx){
+  if (!this.visible) return this;
+  var text = this._text
+    , lines = text.split('\n')
+    , lineHeight = this._lineHeight
+    , height = lineHeight || this._size
+    , bheight = height * lines.length
+    , bwidth = 0
+    , width
+    , x = this.x
+    , y = this.y;
+
+  for (var i = 0, len = lines.length; i < len; ++i) {
+    width = ctx.measureText(lines[i]).width;
+    bwidth = Math.max(bwidth, width);
+  }
+
+  ctx.strokeStyle = 'rgba(255,0,0,.5)';
+  ctx.strokeRect(x, y - height / 2, bwidth, bheight);
+  return this;
+};
+
+/**
  * Draw text, the caret, and possible selection to the given `ctx`.
  *
  * @param {CanvasRenderingContext2D} ctx
