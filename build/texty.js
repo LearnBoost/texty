@@ -418,6 +418,7 @@ Text.prototype.inheritCSS = function(){
  */
 
 Text.prototype.lineHeight = function(n){
+  if (0 == arguments.length) return this._lineHeight || this._size;
   this._lineHeight = n;
   return this;
 };
@@ -976,30 +977,34 @@ Text.prototype.drawLineDecoration = function(ctx, x, y, height, text, c){
   ctx.restore();
 };
 
+/**
+ * Return text bounds as an object.
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @return {Object}
+ * @api public
+ */
+
 Text.prototype.bounds = function(ctx){
   var text = this._text
     , lines = text.split('\n')
-    , lineHeight = this._lineHeight
-    , height = lineHeight || this._size
-    , bheight = height * lines.length
-    , bwidth = 0
-    , width
+    , cheight = this.lineHeight()
+    , height = cheight * lines.length
+    , width = 0
     , x = this.x
     , y = this.y;
 
   for (var i = 0, len = lines.length; i < len; ++i) {
-    width = ctx.measureText(lines[i]).width;
-    bwidth = Math.max(bwidth, width);
+    width = Math.max(width, ctx.measureText(lines[i]).width);
   }
 
   return {
       x: x
-    , y: y - height / 2
-    , width: bwidth
-    , height: bheight 
+    , y: y - cheight / 2
+    , width: width
+    , height: height 
   };
 };
-
 
 /**
  * Draw text boundaries in red.
