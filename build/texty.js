@@ -988,8 +988,8 @@ Text.prototype.drawLineDecoration = function(ctx, x, y, height, text, c){
 Text.prototype.bounds = function(ctx){
   var text = this._text
     , lines = text.split('\n')
-    , cheight = this.lineHeight()
-    , height = cheight * lines.length
+    , size = this.lineHeight()
+    , height = size * lines.length
     , width = 0
     , x = this.x
     , y = this.y;
@@ -1000,7 +1000,7 @@ Text.prototype.bounds = function(ctx){
 
   return {
       x: x
-    , y: y - cheight / 2
+    , y: y - size / 2
     , width: width
     , height: height 
   };
