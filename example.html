@@ -69,7 +69,10 @@
               break;
              // A
              case 0x41:
-               if (e.metaKey) text.selectAll().caret.hide();
+               if (e.metaKey) {
+                 e.preventDefault();
+                 text.selectAll().caret.hide();
+               }
                break;
              // -
              case 0xbd:
