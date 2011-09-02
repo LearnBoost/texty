@@ -382,7 +382,7 @@ Text.prototype.clearCSS = function(){
     .font('Helvetica')
     .color('#000')
     .selectionBackground('#DFF3FC')
-    .lineHeight(this._size);
+    .lineHeight(null);
 };
 
 /**
@@ -889,6 +889,7 @@ Text.prototype.drawSelection = function(ctx, x, y, size, text){
     , last = before[beforeLen - 1]
     , selected = text.slice(from, to).split('\n')
     , selectionLen = selected.length
+    , lineHeight = this.lineHeight()
     , px = size / 2
     , ox = x
     , oy = y
@@ -898,21 +899,21 @@ Text.prototype.drawSelection = function(ctx, x, y, size, text){
   ctx.fillStyle = this._selectionBackgroundColor;
 
   // first
-  y += (beforeLen - 1) * size;
+  y += (beforeLen - 1) * lineHeight;
   width = ctx.measureText(selected[0]).width;
   last = ctx.measureText(last).width;
   ctx.fillRect(x + last, y - px, width, size);
 
   // mid
   for (var i = 1, len = selectionLen - 1; i < len; ++i) {
-    y += size;
+    y += lineHeight;
     width = ctx.measureText(selected[i]).width;
     ctx.fillRect(x, y - px, width, size);
   }
   
   // last
   if (selectionLen < 2) return;
-  y += size;
+  y += lineHeight;
   last = selected[selectionLen - 1];
   width = ctx.measureText(last).width;
   ctx.fillRect(x, y - px, width, size);
@@ -955,14 +956,13 @@ Text.prototype.drawCaret = function(ctx, x, y, size, text){
 
 Text.prototype.drawText = function(ctx, x, y, size, text){
   var lines = text.split('\n')
+    , lineHeight = this.lineHeight()
     , ox = x;
   ctx.fillStyle = this._textColor;
-  ctx.textBaseline = 'middle';
-  ctx.font = this._size + 'px ' + this._families;
   for (var i = 0, len = lines.length; i < len; ++i) {
     ctx.fillText(lines[i], x, y);
     x = ox;
-    y += size;
+    y += lineHeight;
   }
 };
 
@@ -974,6 +974,7 @@ Text.prototype.drawText = function(ctx, x, y, size, text){
 
 Text.prototype.drawLineDecoration = function(ctx, x, y, size, text, c){
   var len = text.split('\n').length
+    , lineHeight = this.lineHeight()
     , em = this.em(ctx);
 
   ctx.save();
@@ -983,7 +984,7 @@ Text.prototype.drawLineDecoration = function(ctx, x, y, size, text, c){
     ctx.fillText('function' == typeof c
       ? c(i)
       : c, x, y);
-    y += size;
+    y += lineHeight;
   }
   ctx.restore();
 };
@@ -999,7 +1000,7 @@ Text.prototype.drawLineDecoration = function(ctx, x, y, size, text, c){
 Text.prototype.bounds = function(ctx){
   var text = this._text
     , lines = text.split('\n')
-    , size = this.lineHeight()
+    , size = Math.max(this._size, this.lineHeight())
     , height = size * lines.length
     , width = 0
     , x = this.x
@@ -1044,11 +1045,13 @@ Text.prototype.drawBounds = function(ctx){
 Text.prototype.draw = function(ctx){
   if (!this.visible) return this;
   var text = this._text
-    , size = this.lineHeight()
+    , size = this._size
     , x = this.x
     , y = this.y;
 
   this._width = ctx.measureText(text).width;
+  ctx.textBaseline = 'middle';
+  ctx.font = size + 'px ' + this._families;
   if (this.selected) this.drawSelection(ctx, x, y, size, text);
   this.drawCaret(ctx, x, y, size, text);
   this.drawText(ctx, x, y, size, text);

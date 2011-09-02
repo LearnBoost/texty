@@ -1,4 +1,12 @@
 
+0.0.3 / 2011-09-02 
+==================
+
+  * Added text resizing to example
+  * Fixed default line-height of null (aka .size)
+  * Fixed line-height support
+  * Fixed caret sizing
+
 0.0.2 / 2011-07-29 
 ==================
 
