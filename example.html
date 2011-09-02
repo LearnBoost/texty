@@ -13,6 +13,11 @@
           , prev
           , start;
 
+        o('[name=size]').change(function(){
+          var n = parseInt(o(this).val(), 10);
+          text.size(n);
+        });
+
         o(canvas).mousedown(function(e){
           var now = new Date
             , x = e.offsetX
@@ -195,6 +200,7 @@
     <p>
       Inherit CSS: <input type="checkbox" name="css" />
       Show bounds: <input type="checkbox" name="bounds" />
+      Size: <input type="range" name="size" min="3" max="100" />
     </p>
     <canvas width="900" height="400" style="border: 1px solid #eee;">
     </canvas>
