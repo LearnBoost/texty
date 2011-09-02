@@ -17,11 +17,6 @@
           , prev
           , start;
 
-        o('[name=size]').change(function(){
-          var n = parseInt(o(this).val(), 10);
-          text.size(n);
-        });
-
         o(canvas).mousedown(function(e){
           var now = new Date
             , x = e.offsetX
@@ -150,6 +145,11 @@
           if (e.ctrlKey) return;
           if (text.selected) text.removeSelection();
           text.insert(String.fromCharCode(e.which));
+        });
+
+        o('[name=size]').change(function(){
+          var n = parseInt(o(this).val(), 10);
+          text.size(n);
         });
 
         o('[name=css]').change(function(){
