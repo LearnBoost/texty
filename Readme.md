@@ -52,6 +52,10 @@ body {
    - Chrome 12.x
    - Safari 5.x
 
+## Links
+
+  - try it in your [browser](http://learnboost.github.com/texty/)
+
 ## License 
 
 (The MIT License)
