@@ -644,11 +644,13 @@ Text.prototype.indexOf = function(x, y){
     , size = this.lineHeight()
     , lines = text.split('\n')
     , height = lines.length * size
-    , charWidth = width / text.length
     , len = lines.length
     , x = x - this.x
     , y = y - this.y
+    , ctx = this.ctx
     , pad = 10;
+
+  if (!text.length) return 0;
 
   // x-axis out of bounds
   if (x < -pad || x > width + pad) return 0;
@@ -657,16 +659,23 @@ Text.prototype.indexOf = function(x, y){
   if (y < -pad || y > height + pad) return 0;
 
   // cap y
-  if (y < size) y = size;
-  y = Math.ceil(y / size);
-  if (y > len) y = len;
+  y = Math.ceil(Math.min(len, Math.max(1, y / size))) - 1;
 
-  // guess index
-  var preceding = lines.slice(0, y - 1).join('\n').length;
+  // preceding chars
+  var preceding = lines.slice(0, y).join('\n').length;
   if (y) ++preceding;
-  var i = Math.round(preceding + x / charWidth);
 
-  return i;
+  // compute index
+  var line = lines[y]
+    , len = line.length
+    , width = 0;
+
+  for (var i = 0; i < len; ++i) {
+    width += ctx.measureText(line[i]).width;
+    if (width > x) break;
+  }
+
+  return i + preceding;
 };
 
 /**
@@ -933,11 +942,12 @@ Text.prototype.drawSelection = function(ctx, x, y, size, text){
 Text.prototype.drawCaret = function(ctx, x, y, size, text){
   if (!this.caret.visible) return;
   var lines = text.substr(0, this.caret.pos).split('\n')
+    , lineHeight = this.lineHeight()
     , len = lines.length
     , line = lines[len - 1]
     , px = size / 2
     , caret = ctx.measureText(line).width + 2
-    , y = y + --len * size;
+    , y = y + --len * lineHeight;
   ctx.strokeStyle = this.caret._color;
   ctx.beginPath();
   ctx.moveTo(x + caret, y - px - 2);
@@ -1049,6 +1059,7 @@ Text.prototype.draw = function(ctx){
     , x = this.x
     , y = this.y;
 
+  this.ctx = ctx;
   this._width = ctx.measureText(text).width;
   ctx.textBaseline = 'middle';
   ctx.font = size + 'px ' + this._families;
